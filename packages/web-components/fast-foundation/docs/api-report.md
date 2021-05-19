@@ -1558,7 +1558,7 @@ export class Picker extends FASTElement {
     // (undocumented)
     handleFocusOut: (e: FocusEvent) => boolean;
     // (undocumented)
-    protected handleInputClick: (e: MouseEvent) => void;
+    handleInputClick: (e: MouseEvent) => void;
     // (undocumented)
     handleItemClick: (e: MouseEvent, itemIndex: number) => boolean;
     // (undocumented)
