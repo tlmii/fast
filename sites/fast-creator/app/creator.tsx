@@ -5,6 +5,7 @@ import React from "react";
 import {
     CustomMessageIncomingOutgoing,
     DataType,
+    MessageSystemDataTypeAction,
     MessageSystemNavigationTypeAction,
     MessageSystemType,
     SchemaDictionary,
@@ -322,7 +323,7 @@ class Creator extends Editor<{}, CreatorState> {
             e.data.type === MessageSystemType.custom &&
             e.data.action === ViewerCustomAction.response
         ) {
-            if (e.data.value === previewReady) {
+            if (e.data.value && e.data.value === previewReady) {
                 this.fastMessageSystem.postMessage({
                     type: MessageSystemType.initialize,
                     dataDictionary: this.state.dataDictionary,
@@ -335,7 +336,7 @@ class Creator extends Editor<{}, CreatorState> {
                 });
                 updatedState.previewReady = true;
                 this.updateEditorContent(this.state.dataDictionary);
-            } else {
+            } else if(e.data.value) {
                 this.fastMessageSystem.postMessage({
                     type: MessageSystemType.navigation,
                     action: MessageSystemNavigationTypeAction.update,
@@ -346,7 +347,19 @@ class Creator extends Editor<{}, CreatorState> {
                         originatorId: HTMLRenderOriginatorId,
                     },
                 });
+            } else if(e.data.data)
+            {
+                this.fastMessageSystem.postMessage({
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.update,
+                    data: e.data.data,
+                    dataLocation: "",
+                    options: {
+                        originatorId: HTMLRenderOriginatorId,
+                    },
+                });                
             }
+
         }
 
         if (
