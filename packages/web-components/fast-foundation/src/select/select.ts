@@ -91,7 +91,11 @@ export class Select extends FormAssociatedSelect {
         }
 
         if (shouldEmit) {
-            this.$emit("change");
+            this.$emit("input");
+            this.$emit("change", this, {
+                bubbles: true,
+                composed: undefined,
+            });
         }
     }
 
@@ -257,8 +261,11 @@ export class Select extends FormAssociatedSelect {
             return;
         }
 
-        if (!this.options || !this.options.includes(focusTarget as ListboxOption)) {
+        if (!this.options?.includes(focusTarget as ListboxOption)) {
             this.open = false;
+            if (this.indexWhenOpened !== this.selectedIndex) {
+                this.updateValue(true);
+            }
         }
     }
 
@@ -341,6 +348,7 @@ export class Select extends FormAssociatedSelect {
 
         if (!this.open && this.indexWhenOpened !== this.selectedIndex) {
             this.updateValue(true);
+            this.indexWhenOpened = this.selectedIndex;
         }
 
         return true;
