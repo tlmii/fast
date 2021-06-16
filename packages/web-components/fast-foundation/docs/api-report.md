@@ -526,7 +526,7 @@ export function createPickerListTemplate(prefix: string): ViewTemplate;
 export function createPickerMenuTemplate(prefix: string): ViewTemplate;
 
 // @public
-export function createPickerTemplate(prefix: string, subtype: string, itemTemplate: ViewTemplate, optionTemplate: ViewTemplate): ViewTemplate;
+export function createPickerTemplate(prefix: string, itemTemplate: ViewTemplate, optionTemplate: ViewTemplate): ViewTemplate;
 
 // @public
 export function createTooltipTemplate(prefix: string): ViewTemplate;
